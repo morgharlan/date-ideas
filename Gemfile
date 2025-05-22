@@ -85,7 +85,6 @@ gem "sqlite3", "~> 1.4"
 gem "table_print"
 gem "simple_form"
 gem "carrierwave"
-gem "openai-chat"
 
 group :development do
   gem "annotate"
@@ -110,4 +109,9 @@ group :test do
   gem "shoulda-matchers", "~> 4.0"
   gem "rspec-html-matchers"
   gem "webmock"
+
+  gem 'ruby-openai'
+  gem 'dotenv-rails'
+
+
 end

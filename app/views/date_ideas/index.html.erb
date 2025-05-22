@@ -9,7 +9,7 @@
     <!-- Main Input Card -->
     <div class="max-w-2xl mx-auto">
       <div class="bg-white rounded-2xl shadow-xl p-8">
-        <%= form_with url: generate_date_ideas_path, method: :post, local: true, class: "space-y-6" do |form| %>
+        <%= form_with url: '/date_ideas/generate', method: :post, local: true, class: "space-y-6" do |form| %>
           
           <!-- Budget -->
           <div>
@@ -27,46 +27,34 @@
           <!-- Time of Day -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Time of Day</label>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <% ['morning', 'afternoon', 'evening', 'night'].each do |time| %>
-                <label class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                  <%= radio_button_tag 'time_of_day', time, false, class: "sr-only peer" %>
-                  <span class="peer-checked:bg-purple-500 peer-checked:text-white w-full text-center py-1 rounded transition-colors">
-                    <%= time.capitalize %>
-                  </span>
-                </label>
-              <% end %>
-            </div>
+            <select name="time_of_day" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+              <option value="">Any time</option>
+              <option value="morning">Morning</option>
+              <option value="afternoon">Afternoon</option>
+              <option value="evening">Evening</option>
+              <option value="night">Night</option>
+            </select>
           </div>
 
           <!-- Setting -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Setting Preference</label>
-            <div class="grid grid-cols-2 gap-3">
-              <% ['indoor', 'outdoor'].each do |setting| %>
-                <label class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                  <%= radio_button_tag 'setting', setting, false, class: "sr-only peer" %>
-                  <span class="peer-checked:bg-purple-500 peer-checked:text-white w-full text-center py-1 rounded transition-colors">
-                    <%= setting.capitalize %>
-                  </span>
-                </label>
-              <% end %>
-            </div>
+            <select name="setting" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+              <option value="">Any setting</option>
+              <option value="indoor">Indoor</option>
+              <option value="outdoor">Outdoor</option>
+            </select>
           </div>
 
           <!-- Effort Level -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Effort Level</label>
-            <div class="grid grid-cols-3 gap-3">
-              <% ['low', 'medium', 'high'].each do |effort| %>
-                <label class="flex items-center justify-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                  <%= radio_button_tag 'effort', effort, false, class: "sr-only peer" %>
-                  <span class="peer-checked:bg-purple-500 peer-checked:text-white w-full text-center py-1 rounded transition-colors">
-                    <%= effort.capitalize %>
-                  </span>
-                </label>
-              <% end %>
-            </div>
+            <select name="effort" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+              <option value="">Any effort level</option>
+              <option value="low">Low - Minimal planning needed</option>
+              <option value="medium">Medium - Some planning required</option>
+              <option value="high">High - Detailed planning needed</option>
+            </select>
           </div>
 
           <!-- Location -->

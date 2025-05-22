@@ -43,3 +43,4 @@ examples.txt
 
 # Ignore public uploads
 /public/uploads/*
+.env
