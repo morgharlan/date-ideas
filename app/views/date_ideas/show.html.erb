@@ -1,0 +1,57 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="max-w-2xl mx-auto">
+    <%= link_to "← Back to Date Ideas", date_ideas_path, class: "text-blue-500 hover:text-blue-700 mb-6 inline-block" %>
+    
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-4"><%= @date_idea.title %></h1>
+      
+      <% if @date_idea.description.present? %>
+        <p class="text-gray-700 text-lg mb-6"><%= @date_idea.description %></p>
+      <% end %>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <% if @date_idea.budget.present? %>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h3 class="font-semibold text-gray-800 mb-2">Budget</h3>
+            <p class="text-2xl font-bold text-green-600">$<%= @date_idea.budget %></p>
+          </div>
+        <% end %>
+        
+        <% if @date_idea.time_of_day.present? %>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h3 class="font-semibold text-gray-800 mb-2">Best Time</h3>
+            <p class="text-lg capitalize"><%= @date_idea.time_of_day %></p>
+          </div>
+        <% end %>
+        
+        <% if @date_idea.setting.present? %>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h3 class="font-semibold text-gray-800 mb-2">Setting</h3>
+            <p class="text-lg capitalize"><%= @date_idea.setting %></p>
+          </div>
+        <% end %>
+        
+        <% if @date_idea.effort.present? %>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h3 class="font-semibold text-gray-800 mb-2">Effort Level</h3>
+            <p class="text-lg capitalize"><%= @date_idea.effort %></p>
+          </div>
+        <% end %>
+      </div>
+      
+      <% if @date_idea.city.present? %>
+        <div class="mb-6">
+          <h3 class="font-semibold text-gray-800 mb-2">Location</h3>
+          <p class="text-lg"><%= @date_idea.city %></p>
+        </div>
+      <% end %>
+      
+      <div class="flex space-x-4">
+        <%= link_to "Save This Date", "#", 
+            class: "bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors font-medium" %>
+        <%= link_to "Edit", "#", 
+            class: "bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors font-medium" %>
+      </div>
+    </div>
+  </div>
+</div>

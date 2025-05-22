@@ -1,0 +1,59 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-gray-900 mb-8">Date Ideas</h1>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% @date_ideas.each do |date_idea| %>
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2"><%= date_idea.title %></h3>
+        
+        <% if date_idea.description.present? %>
+          <p class="text-gray-600 mb-4"><%= date_idea.description %></p>
+        <% end %>
+        
+        <div class="space-y-2 text-sm">
+          <% if date_idea.budget.present? %>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Budget:</span>
+              <span class="font-medium text-green-600">$<%= date_idea.budget %></span>
+            </div>
+          <% end %>
+          
+          <% if date_idea.time_of_day.present? %>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Time:</span>
+              <span class="font-medium"><%= date_idea.time_of_day.capitalize %></span>
+            </div>
+          <% end %>
+          
+          <% if date_idea.setting.present? %>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Setting:</span>
+              <span class="font-medium"><%= date_idea.setting.capitalize %></span>
+            </div>
+          <% end %>
+          
+          <% if date_idea.effort.present? %>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Effort:</span>
+              <span class="font-medium"><%= date_idea.effort.capitalize %></span>
+            </div>
+          <% end %>
+          
+          <% if date_idea.city.present? %>
+            <div class="flex justify-between">
+              <span class="text-gray-500">City:</span>
+              <span class="font-medium"><%= date_idea.city %></span>
+            </div>
+          <% end %>
+        </div>
+        
+        <div class="mt-6 flex space-x-2">
+          <%= link_to "View Details", date_idea_path(date_idea), 
+              class: "flex-1 bg-blue-500 text-white text-center px-4 py-2 rounded hover:bg-blue-600 transition-colors" %>
+          <%= link_to "Save", "#", 
+              class: "bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

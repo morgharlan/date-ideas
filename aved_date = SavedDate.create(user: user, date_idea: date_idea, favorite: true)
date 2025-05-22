@@ -1,0 +1,15 @@
+=> [32m#<DateIdea:0x00007e17096dc470[0m
+ id: [1;34m4[0m,
+ title: [31m[1;31m"[0m[31mTest Date[1;31m"[0m[31m[0m,
+ description: [1;36mnil[0m,
+ budget: [1;35m0.5e2[0m,
+ time_of_day: [1;36mnil[0m,
+ setting: [1;36mnil[0m,
+ effort: [1;36mnil[0m,
+ latitude: [1;36mnil[0m,
+ longitude: [1;36mnil[0m,
+ city: [1;36mnil[0m,
+ created_at:
+  [1;34;4mThu[0m, [1;34m22[0m [1;34;4mMay[0m [1;34m2025[0m [1;34m00[0m:[1;34m47[0m:[1;35m29.411021000[0m [1;34;4mUTC[0m [1;34m+00[0m:[1;34m00[0m,
+ updated_at:
+  [1;34;4mThu[0m, [1;34m22[0m [1;34;4mMay[0m [1;34m2025[0m [1;34m00[0m:[1;34m47[0m:[1;35m29.411021000[0m [1;34;4mUTC[0m [1;34m+00[0m:[1;34m00[0m[32m>[0m

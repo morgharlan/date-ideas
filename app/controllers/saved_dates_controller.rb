@@ -1,0 +1,2 @@
+class SavedDatesController < ApplicationController
+end
