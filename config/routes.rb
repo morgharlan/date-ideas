@@ -1,19 +1,18 @@
 Rails.application.routes.draw do
-
-  # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
-
-  # get "/your_first_screen" => "pages#first"
-root 'date_ideas#index'
-  
-  resources :users do
-    resources :saved_dates, only: [:index, :create, :update, :destroy]
-  end
+  root 'date_ideas#index'
   
   resources :date_ideas do
-    member do
-      post :save_date
+    collection do
+      post :generate  # This will handle the form submission
     end
   end
   
-  resources :saved_dates, only: [:show, :update, :destroy]
+  resources :saved_dates, only: [:index, :show, :create, :destroy] do
+    member do
+      patch :toggle_favorite
+      patch :mark_completed
+    end
+  end
+  
+  resources :users, only: [:show, :new, :create]
 end
