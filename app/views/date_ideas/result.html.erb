@@ -3,8 +3,7 @@
     <div class="max-w-4xl mx-auto">
       
       <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-800 mb-2">Your AI-Generated Surprise Date! 🤖✨</h1>
-        <p class="text-gray-600">Personalized just for you by ChatGPT</p>
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">Your Surprise Date! ✨</h1>
       </div>
 
       <div class="bg-white rounded-2xl shadow-xl p-8 mb-6">
@@ -51,10 +50,24 @@
         </div>
 
 
-        <div class="flex flex-col sm:flex-row gap-4 pt-4">
-          <%= link_to "💾 Save This Date", "#", class: "flex-1 bg-green-500 text-white text-center py-3 px-6 rounded-lg hover:bg-green-600 transition-colors font-medium" %>
-          <%= link_to "🔄 Generate Another", root_path, class: "flex-1 bg-purple-500 text-white text-center py-3 px-6 rounded-lg hover:bg-purple-600 transition-colors font-medium" %>
-          <%= link_to "📚 View Saved Dates", saved_dates_path, class: "flex-1 bg-gray-500 text-white text-center py-3 px-6 rounded-lg hover:bg-gray-600 transition-colors font-medium" %>
+        <div class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-gray-200">
+  <form action="/save_date" method="post" class="flex-1">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%= hidden_field_tag :title, @generated_date[:title] %>
+    <%= hidden_field_tag :description, @generated_date[:description] %>
+    <%= hidden_field_tag :detailed_plan, @generated_date[:detailed_plan] %>
+    <%= hidden_field_tag :budget, @generated_date[:budget] %>
+    <%= hidden_field_tag :time_of_day, @generated_date[:time_of_day] %>
+    <%= hidden_field_tag :setting, @generated_date[:setting] %>
+    <%= hidden_field_tag :effort, @generated_date[:effort] %>
+    <%= hidden_field_tag :location, @generated_date[:location] %>
+    <input type="submit" value="💾 Save This Date" class="w-full bg-green-500 text-white text-center py-3 px-6 rounded-lg hover:bg-green-600 transition-colors font-medium shadow-md cursor-pointer">
+  </form>
+  
+  <%= link_to "🔄 Generate Another", root_path, 
+      class: "flex-1 bg-purple-500 text-white text-center py-3 px-6 rounded-lg hover:bg-purple-600 transition-colors font-medium shadow-md" %>
+  <%= link_to "📚 View Saved Dates", saved_dates_path, 
+      class: "flex-1 bg-gray-500 text-white text-center py-3 px-6 rounded-lg hover:bg-gray-600 transition-colors font-medium shadow-md" %>
         </div>
       </div>
     </div>

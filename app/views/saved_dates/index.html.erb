@@ -1,110 +1,94 @@
-<div class="min-h-screen bg-gradient-to-br from-pink-100 to-purple-100 py-8">
+<div class="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-100 py-8">
   <div class="container mx-auto px-4">
-    <div class="max-w-4xl mx-auto">
-      
-      <!-- Header -->
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-800 mb-2">Your AI-Generated Surprise Date! 🤖✨</h1>
-        <p class="text-gray-600">Personalized just for you by ChatGPT</p>
-      </div>
+    
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-gray-800 mb-2">My Saved Dates 📚</h1>
+      <p class="text-gray-600">Your collection of memorable and planned dates</p>
+      <%= link_to "← Generate New Date", root_path, 
+          class: "inline-block mt-4 text-purple-600 hover:text-purple-800 font-medium" %>
+    </div>
 
-      <!-- Generated Date Card -->
-      <div class="bg-white rounded-2xl shadow-xl p-8 mb-6">
-        <h2 class="text-3xl font-bold text-gray-800 mb-4"><%= @generated_date[:title] %></h2>
-        
-        <!-- Quick Details -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div class="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
-            <div class="text-3xl mb-2">💰</div>
-            <div class="text-sm text-gray-600">Budget</div>
-            <div class="font-bold text-green-600">$<%= @generated_date[:budget] %></div>
-          </div>
-          
-          <div class="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
-            <div class="text-3xl mb-2">🕒</div>
-            <div class="text-sm text-gray-600">Time</div>
-            <div class="font-bold text-blue-600 capitalize"><%= @generated_date[:time_of_day] || 'Flexible' %></div>
-          </div>
-          
-          <div class="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
-            <div class="text-3xl mb-2">📍</div>
-            <div class="text-sm text-gray-600">Setting</div>
-            <div class="font-bold text-purple-600 capitalize"><%= @generated_date[:setting] || 'Mixed' %></div>
-          </div>
-          
-          <div class="text-center p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg">
-            <div class="text-3xl mb-2">⚡</div>
-            <div class="text-sm text-gray-600">Effort</div>
-            <div class="font-bold text-orange-600 capitalize"><%= @generated_date[:effort] || 'Moderate' %></div>
-          </div>
-        </div>
+    <% if @saved_dates&.any? %>
+      <!-- Saved Dates Grid -->
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <% @saved_dates.each do |saved_date| %>
+            <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow p-6">
+              
+              <!-- Status Badges -->
+              <div class="flex space-x-1 mb-4">
+                <% if saved_date.favorite? %>
+                  <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">⭐ Favorite</span>
+                <% end %>
+                <% if saved_date.completed? %>
+                  <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">✅ Done</span>
+                <% else %>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">📅 Planned</span>
+                <% end %>
+              </div>
 
-        <!-- Description -->
-        <div class="mb-6">
-          <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
-            <span class="mr-2">📝</span> Description
-          </h3>
-          <div class="bg-gray-50 p-4 rounded-lg">
-            <p class="text-gray-700 leading-relaxed"><%= @generated_date[:description] %></p>
-          </div>
-        </div>
+              <!-- Date Idea Content -->
+              <div class="mb-4">
+                <h3 class="text-xl font-bold text-gray-800 mb-2"><%= saved_date.date_idea.title %></h3>
+                
+                <% if saved_date.date_idea.description.present? %>
+                  <p class="text-gray-600 text-sm mb-3"><%= truncate(saved_date.date_idea.description, length: 100) %></p>
+                <% end %>
 
-        <!-- Detailed Plan -->
-        <div class="mb-6">
-          <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
-            <span class="mr-2">🗓️</span> Your Date Plan
-          </h3>
-          <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg">
-            <div class="whitespace-pre-line text-gray-700 leading-relaxed"><%= @generated_date[:detailed_plan] %></div>
-          </div>
-        </div>
+                <!-- Quick Info -->
+                <div class="grid grid-cols-2 gap-2 text-xs text-gray-500 mb-3">
+                  <% if saved_date.date_idea.budget.present? %>
+                    <div>💰 $<%= saved_date.date_idea.budget %></div>
+                  <% end %>
+                  <% if saved_date.date_idea.time_of_day.present? %>
+                    <div>🕒 <%= saved_date.date_idea.time_of_day.capitalize %></div>
+                  <% end %>
+                  <% if saved_date.date_idea.setting.present? %>
+                    <div>📍 <%= saved_date.date_idea.setting.capitalize %></div>
+                  <% end %>
+                  <% if saved_date.date_idea.effort.present? %>
+                    <div>⚡ <%= saved_date.date_idea.effort.capitalize %></div>
+                  <% end %>
+                </div>
+              </div>
 
-        <!-- Tips (if available) -->
-        <% if @generated_date[:tips].present? %>
-          <div class="mb-6">
-            <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
-              <span class="mr-2">💡</span> Pro Tips
-            </h3>
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
-              <p class="text-gray-700"><%= @generated_date[:tips] %></p>
+              <!-- Personal Notes -->
+              <% if saved_date.note.present? %>
+                <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                  <h4 class="text-sm font-medium text-gray-700 mb-1">My Notes:</h4>
+                  <p class="text-sm text-gray-600"><%= saved_date.note %></p>
+                </div>
+              <% end %>
+
+              <!-- Action Buttons -->
+              <div class="flex space-x-2">
+                <%= link_to "View Details", saved_date.date_idea, class: "flex-1 text-center bg-blue-500 text-white text-xs py-2 px-3 rounded hover:bg-blue-600 transition-colors" %>
+                <%= link_to "Delete", saved_date, method: :delete, 
+                    data: { confirm: "Are you sure?" },
+                    class: "bg-red-500 text-white text-xs py-2 px-3 rounded hover:bg-red-600 transition-colors" %>
+              </div>
+
+              <!-- Date Saved -->
+              <div class="text-xs text-gray-400 mt-3 text-center">
+                Saved <%= saved_date.created_at.strftime("%B %d, %Y") %>
+              </div>
             </div>
-          </div>
-        <% end %>
-
-        <!-- Error Notice (if API failed) -->
-        <% if @generated_date[:api_error] %>
-          <div class="mb-6 bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg">
-            <p class="text-red-700">
-              <strong>Note:</strong> We used a backup suggestion since our AI is temporarily unavailable. 
-              Try generating another date for a fresh AI-powered idea!
-            </p>
-          </div>
-        <% end %>
-
-        <!-- Action Buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-gray-200">
-          <%= link_to "💾 Save This Date", "#", 
-              class: "flex-1 bg-green-500 text-white text-center py-3 px-6 rounded-lg hover:bg-green-600 transition-colors font-medium shadow-md" %>
-          <%= link_to "🔄 Generate Another", root_path, 
-              class: "flex-1 bg-purple-500 text-white text-center py-3 px-6 rounded-lg hover:bg-purple-600 transition-colors font-medium shadow-md" %>
-          <%= link_to "📚 View Saved Dates", saved_dates_path, 
-              class: "flex-1 bg-gray-500 text-white text-center py-3 px-6 rounded-lg hover:bg-gray-600 transition-colors font-medium shadow-md" %>
-        </div>
-      </div>
-
-      <!-- Your Preferences Used -->
-      <div class="bg-white rounded-lg shadow-md p-4">
-        <h4 class="font-medium text-gray-800 mb-2">Preferences Used:</h4>
-        <div class="text-sm text-gray-600 flex flex-wrap gap-2">
-          <% @generated_date[:preferences_used].each do |key, value| %>
-            <% if value.present? %>
-              <span class="bg-gray-100 px-2 py-1 rounded">
-                <%= key.to_s.humanize %>: <%= value %>
-              </span>
-            <% end %>
           <% end %>
         </div>
       </div>
-    </div>
+
+    <% else %>
+      <!-- Empty State -->
+      <div class="max-w-md mx-auto text-center">
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+          <div class="text-6xl mb-4">📅</div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">No Saved Dates Yet</h3>
+          <p class="text-gray-600 mb-6">Start by generating your first surprise date!</p>
+          <%= link_to "Generate My First Date", root_path, 
+              class: "bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition-colors font-medium" %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

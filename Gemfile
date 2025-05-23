@@ -113,5 +113,7 @@ group :test do
   gem 'ruby-openai'
   gem 'dotenv-rails'
 
+  gem 'bcrypt'
+
 
 end

@@ -23,6 +23,80 @@ class DateIdeasController < ApplicationController
   def show
     @date_idea = DateIdea.find(params[:id])
   end
+  def save_generated_date
+  puts "=== SAVE DEBUG ==="
+  puts "Params: #{params.inspect}"
+  puts "Date idea params: #{params[:date_idea]}"
+  puts "=================="
+  
+  # Get the date data from the form parameters
+  date_data = params.require(:date_idea).permit(:title, :description, :detailed_plan, :budget, :time_of_day, :setting, :effort, :location)
+  
+  puts "Processed data: #{date_data.inspect}"
+  
+  # Create a new DateIdea in the database
+  @date_idea = DateIdea.create!(
+    title: date_data[:title],
+    description: date_data[:description],
+    budget: date_data[:budget],
+    time_of_day: date_data[:time_of_day],
+    setting: date_data[:setting],
+    effort: date_data[:effort],
+    city: date_data[:location]
+  )
+  
+  # Create a SavedDate for the first user (we'll add proper user auth later)
+  @saved_date = SavedDate.create!(
+    user: User.first, # Temporary - we'll fix this with authentication
+    date_idea: @date_idea,
+    note: "Generated on #{Date.current}"
+  )
+  
+  redirect_to saved_dates_path, notice: "Date saved successfully! 🎉"
+rescue => e
+  puts "=== SAVE ERROR ==="
+  puts "Error: #{e.message}"
+  puts "================="
+  redirect_to root_path, alert: "Could not save date: #{e.message}"
+end
+def create_saved_date
+  puts "=== SAVE DEBUG ==="
+  puts "Params: #{params.inspect}"
+  
+  # Get the date data from the form parameters
+  title = params[:title] || "Generated Date"
+  description = params[:description] || "A wonderful date experience"
+  detailed_plan = params[:detailed_plan] || "Custom date plan"
+  budget = params[:budget] || 50
+  time_of_day = params[:time_of_day]
+  setting = params[:setting]
+  effort = params[:effort]
+  location = params[:location]
+  
+  # Create a new DateIdea in the database
+  @date_idea = DateIdea.create!(
+    title: title,
+    description: description,
+    budget: budget,
+    time_of_day: time_of_day,
+    setting: setting,
+    effort: effort,
+    city: location
+  )
+  
+  # Create a SavedDate for the first user
+  @saved_date = SavedDate.create!(
+    user: User.first,
+    date_idea: @date_idea,
+    note: "Generated on #{Date.current}"
+  )
+  
+  redirect_to saved_dates_path, notice: "Date saved successfully! 🎉"
+rescue => e
+  puts "=== SAVE ERROR ==="
+  puts "Error: #{e.message}"
+  redirect_to root_path, alert: "Could not save date: #{e.message}"
+end
 
   private
 
@@ -265,5 +339,5 @@ class DateIdeasController < ApplicationController
     
     redirect_to saved_dates_path, notice: "Date saved successfully! 🎉"
   end
-
+  
 end
