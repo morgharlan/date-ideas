@@ -46,12 +46,19 @@
         </div>
       <% end %>
       
-      <div class="flex space-x-4">
-        <%= link_to "Save This Date", "#", 
-            class: "bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors font-medium" %>
-        <%= link_to "Edit", "#", 
-            class: "bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors font-medium" %>
-      </div>
+     <%= form_with url: saved_dates_path, method: :post do %>
+  <%= hidden_field_tag :date_idea_id, @date_idea.id %>
+  <%= submit_tag "Save This Date", class: "bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors font-medium" %>
+<% end %>
+<div class="flex space-x-4">
+  <%= form_with url: saved_dates_path, method: :post do %>
+    <%= hidden_field_tag :date_idea_id, @date_idea.id %>
+    <%= submit_tag "Save This Date", class: "bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors font-medium" %>
+  <% end %>
+
+  <%= link_to "Edit", "#", 
+      class: "bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors font-medium" %>
+</div>
     </div>
   </div>
 </div>
