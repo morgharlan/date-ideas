@@ -2,18 +2,19 @@
 #
 # Table name: date_ideas
 #
-#  id          :bigint           not null, primary key
-#  budget      :decimal(8, 2)
-#  city        :string
-#  description :text
-#  effort      :string
-#  latitude    :decimal(10, 6)
-#  longitude   :decimal(10, 6)
-#  setting     :string
-#  time_of_day :string
-#  title       :string           not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id            :bigint           not null, primary key
+#  budget        :decimal(8, 2)
+#  city          :string
+#  description   :text
+#  detailed_plan :text
+#  effort        :string
+#  latitude      :decimal(10, 6)
+#  longitude     :decimal(10, 6)
+#  setting       :string
+#  time_of_day   :string
+#  title         :string           not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 class DateIdea < ApplicationRecord
 validates :title, presence: true
